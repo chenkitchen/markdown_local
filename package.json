@@ -1,6 +1,6 @@
 {
   "name": "makedown-editor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "license": "MIT",
   "build": {
@@ -18,7 +18,7 @@
     "start": "DEBUG=true electron .",
     "build:mac": "electron-builder --macos --dir",
     "watch": "nodemon --watch index.js --exec yarn start",
-    "publish:github": "build --mac -p always"
+    "publish:github": "electron-builder build --mac -p always"
   },
   "devDependencies": {
     "electron": "^31.0.2",
