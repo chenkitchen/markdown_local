@@ -1,0 +1,31 @@
+{
+  "name": "makedown-editor",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "build": {
+    "appId": "1234567",
+    "mac": {
+      "category": "public.app-category.u"
+    },
+    "publish":{
+      "provider":"github",
+      "owner":"chenkitchen",
+      "repo":"markdown_local"
+    }
+  },
+  "scripts": {
+    "start": "DEBUG=true electron .",
+    "build:mac": "electron-builder --macos --dir",
+    "watch": "nodemon --watch index.js --exec yarn start",
+    "publish:github": "build --mac -p always"
+  },
+  "devDependencies": {
+    "electron": "^31.0.2",
+    "electron-builder": "^24.13.3"
+  },
+  "dependencies": {
+    "electron-updater": "^6.2.1",
+    "simplemde": "^1.11.2"
+  }
+}

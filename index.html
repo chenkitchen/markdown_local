@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>electron-builder demo</title>
+  <link rel="stylesheet" href="./node_modules/simplemde/dist/simplemde.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="./node_modules/simplemde/dist/simplemde.min.js"></script>
+  <style>
+    html,body{
+      height: 100%;
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+    }
+    .codeMirror{
+      flex:1;
+    }
+  </style>
+</head>
+<body ondrop="dragHandler(event)">
+  <div>金客档</div>
+  <textarea id="editor_my"></textarea>
+  <script>
+    let editor = new SimpleMDE({
+      element: document.getElementById('editor_my')
+    })
+
+    const {ipcRenderer} = require('electron')
+    ipcRenderer.on('editor-event',(event,arg)=>{
+      if(arg === 'bold'){
+        editor.toggleBold() 
+      }
+      if(arg === 'save'){
+        event.sender.send('save',editor.value())
+      }
+      if(arg === 'open'){
+        event.sender.send('open')
+      }
+    })
+    ipcRenderer.send('editor-reply','page send ...')
+    ipcRenderer.on('load',(event,arg)=>{
+      if(arg){
+        editor.value(arg)
+      }
+    })
+    function dragHandler(event){
+      event.preventDefault();
+      let file = event.dataTransfer.files
+      if(file[0]){
+        if(file[0].type === 'text/markdown'){
+          let reader = new FileReader()
+          reader.onload = e=>{
+            let content = e.target.result
+            editor.codemirror.setValue(content) 
+          }
+          reader.readAsText(file[0]) 
+        }
+      }
+    }
+  </script>
+</body>
+</html>
