@@ -1,6 +1,6 @@
 {
   "name": "makedown-editor",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "main": "index.js",
   "license": "MIT",
   "build": {
@@ -8,10 +8,10 @@
     "mac": {
       "category": "public.app-category.u"
     },
-    "publish":{
-      "provider":"github",
-      "owner":"chenkitchen",
-      "repo":"markdown_local"
+    "publish": {
+      "provider": "github",
+      "owner": "chenkitchen",
+      "repo": "markdown_local"
     }
   },
   "scripts": {
